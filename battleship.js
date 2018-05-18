@@ -30,11 +30,10 @@ var model = {
            { locations: ["24", "34", "44"],hits: ["", "", ""] },
            { locations: ["10", "11", "12"],hits: ["", "", ""] } ],
 
-  for: function(guess) {
+  fire: function(guess) {
      for (var i = 0; i < this.numShips; i ++) {
        var ship = this.ships[i];
-       location = ship.locations;
-       var index = locations.indexOf(guess);
+       var index = ship.locations.indexOf(guess);
        if (index >= 0) {
         ship.hits[index] = "hit";
         view.displayHit(guess);
@@ -60,5 +59,27 @@ var model = {
   }
 }
 
+  
+var controller = {
+  guesses: 0,
+    
+  parseGuess: function(guess) {
+    var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
+    if (guess == null || guess.Length !== 2) {
+      alert("Oops, please enter a letter and a number on the board.");
+    } else {
+      firstChar = guess.charAt(0);
+      var row = alphabet.indexOf(firstChar);
+      var column = guess.charAt(1);
+  
+      if (isNaN(row) || isNaN(column)) {
+        alert("Oops, that isn't on the blard.");
+      } else if (row < 0 || row >= model.boardSize ||
+               column < 0 || column >= model.boardSize) {
+        alert("Oops,that's off the board!");
+      }
+    }
+  }
+}
 
 
